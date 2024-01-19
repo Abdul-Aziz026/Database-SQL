@@ -1,11 +1,11 @@
 # Write your MySQL query statement below
 
 # 1st solution
-```
+`
 select name 
 from Customer
 where (referee_id IS NULL or referee_id != 2);
-```
+`
 
 
 # 2nd solution
