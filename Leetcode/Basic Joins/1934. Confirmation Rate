@@ -1,0 +1,13 @@
+# https://leetcode.com/problems/confirmation-rate/?envType=study-plan-v2&envId=top-sql-50
+# Write your MySQL query statement below 
+
+select S.user_id, ROUND((CASE 
+                    WHEN C.user_id is null then 0.00
+                    ELSE sum(C.action = "confirmed") / count(*)
+                    end), 2) as confirmation_rate
+from Signups as S
+left join
+Confirmations as C
+on S.user_id = C.user_id
+group by S.user_id;
+
