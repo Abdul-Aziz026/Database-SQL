@@ -1,0 +1,16 @@
+with tempTable as (
+    select student_id, student_name, subject_name
+    from Students join Subjects
+    on true
+)
+select T.student_id, T.student_name, T.subject_name, 
+count(E.subject_name) as attended_exams
+from
+tempTable as T left join Examinations as E 
+on 
+    T.student_id = E.student_id
+    and T.subject_name = E.subject_name
+group by 
+    T.student_id , T.subject_name, T.student_name
+order by
+    T.student_id , T.subject_name, T.student_name;
