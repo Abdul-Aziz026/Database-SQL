@@ -1,0 +1,13 @@
+# Write your MySQL query statement below
+select P.product_id, 
+            (case when S.product_id is null then 0.00
+            else round(sum(P.price * S.units) / sum(units), 2) end)
+            as average_price
+from Prices as P
+left join
+UnitsSold as S
+on P.product_id = S.product_id
+where S.product_id is null or 
+    (S.purchase_date >= P.start_date and 
+     S.purchase_date <= P.end_date)
+group by P.product_id;
