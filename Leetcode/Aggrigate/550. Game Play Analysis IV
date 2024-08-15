@@ -1,0 +1,24 @@
+# Write your MySQL query statement below
+with firstLogin as (
+    select  player_id, 
+            min(event_date) as first_date
+    from Activity
+    group by player_id
+),
+
+consequtiveLogin as (
+    select A.player_id
+    from Activity A
+    join
+    firstLogin F
+    on true
+    where A.player_id = F.player_id
+          and
+          F.first_date = date_sub(A.event_date, interval 1 day)
+)
+
+select (
+    round(
+        (select count(*) from consequtiveLogin) /
+        (select count(*) from firstLogin), 2)
+    ) as fraction;
