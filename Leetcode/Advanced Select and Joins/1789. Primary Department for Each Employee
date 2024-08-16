@@ -1,0 +1,14 @@
+# Write your MySQL query statement below
+with tempTable as(
+    select  employee_id, 
+        count(department_id) as multi_dept
+    from employee
+    group by employee_id
+)
+
+select E.employee_id, E.department_id
+from employee E
+join
+tempTable T
+on E.employee_id = T.employee_id
+    and ((T.multi_dept = 1) or (E.primary_flag = 'Y'));
