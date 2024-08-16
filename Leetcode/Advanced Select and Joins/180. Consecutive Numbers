@@ -1,0 +1,10 @@
+# Write your MySQL query statement below
+select distinct F.num as ConsecutiveNums
+from Logs F,
+Logs S,
+Logs T
+where (
+    F.id + 1 = S.id and F.num = S.num
+    and
+    F.id + 2 = T.id and F.num = T.num
+);
