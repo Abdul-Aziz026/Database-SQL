@@ -1,0 +1,18 @@
+# Write your MySQL query statement below
+with tempTable as (
+    select  reports_to as report_id, 
+        count(reports_to) as count,
+        round(avg(age)) as average
+    from employees
+    group by reports_to
+)
+
+select  E.employee_id, 
+        E.name, 
+        count as reports_count, 
+        average as average_age
+from employees E
+join
+tempTable as T
+on (E.employee_id = T.report_id)
+order by employee_id;
