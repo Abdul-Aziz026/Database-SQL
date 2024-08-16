@@ -1,0 +1,19 @@
+# Write your MySQL query statement below
+with countProduct as (
+    select count(distinct(product_key)) as cnt
+    from product
+),
+
+customerTable as (
+    select customer_id, count(distinct(product_key)) as cnt
+    from customer
+    group by customer_id
+)
+
+select customer_id
+from customerTable
+join 
+countProduct
+on true
+where customerTable.cnt = countProduct.cnt;
+
