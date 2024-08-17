@@ -1,0 +1,24 @@
+
+SELECT product_id,
+    10 as price
+from Products
+group by product_id
+having min(change_date) > '2019-08-16' 
+
+
+union
+
+
+SELECT
+    product_id,
+    new_price as price
+FROM 
+    Products P
+where P.change_date in (
+        select max(change_date)
+        from products p1
+        where   p1.product_id = P.product_id
+                and
+                p1.change_date <= '2019-08-16'
+    )
+;
